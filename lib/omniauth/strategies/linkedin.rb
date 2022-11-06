@@ -125,6 +125,17 @@ module OmniAuth
       def profile_endpoint
         "/v2/me?projection=(#{ fields.join(',') })"
       end
+
+      def authorize_params
+        params = super
+
+        provided_info = ['vanity_name', @env['rack.request.form_hash'].send(:[], 'vanity_name')].join(":")
+        state = [session["omniauth.state"], provided_info].join("~")
+        session["omniauth.state"] = state
+        params[:state] = state
+
+        params
+      end
     end
   end
 end
