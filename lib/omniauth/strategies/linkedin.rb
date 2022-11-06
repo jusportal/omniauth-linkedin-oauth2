@@ -129,8 +129,8 @@ module OmniAuth
       def authorize_params
         params = super
 
-        provided_info = ['vanity_name', @env['rack.request.form_hash'].send(:[], 'vanity_name')].join("~>")
-        state = [session["omniauth.state"], provided_info].join("~")
+        provided_info = ['vanity_name', @env['rack.request.form_hash'].send(:[], 'vanity_name')].join("fzkt->")
+        state = [session["omniauth.state"], provided_info].join("~fzkt~")
         session["omniauth.state"] = state
         params[:state] = state
 
